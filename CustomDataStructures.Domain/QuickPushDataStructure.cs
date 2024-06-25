@@ -9,6 +9,11 @@ namespace CustomDataStructures.Domain
     public class QuickPushDataStructure<T> where T : IComparable<T>
     {
         private IComparer<T> Comparer { get; set; }
+
+        public QuickPushDataStructure() 
+        {
+            Comparer = Comparer<T>.Default;
+        }
         public QuickPushDataStructure(IComparer<T> comparer)
         {
             Comparer = comparer;

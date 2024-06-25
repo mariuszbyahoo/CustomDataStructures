@@ -8,8 +8,8 @@ namespace CustomDataStructures.Tests
         [SetUp]
         public void Setup()
         {
-            IntDataStructure = new QuickPushDataStructure<int>(Comparer<int>.Default);
-            PersonDataStructure = new QuickPushDataStructure<Person>(Comparer<Person>.Default);
+            IntDataStructure = new QuickPushDataStructure<int>();
+            PersonDataStructure = new QuickPushDataStructure<Person>();
         }
 
         [Test]

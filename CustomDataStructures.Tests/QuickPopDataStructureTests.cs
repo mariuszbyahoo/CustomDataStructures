@@ -14,8 +14,8 @@ namespace CustomDataStructures.Tests
         [SetUp]
         public void Setup()
         {
-            IntDataStructure = new QuickPopDataStructure<int>(Comparer<int>.Default);
-            PersonDataStructure = new QuickPopDataStructure<Person>(Comparer<Person>.Default);
+            IntDataStructure = new QuickPopDataStructure<int>();
+            PersonDataStructure = new QuickPopDataStructure<Person>();
         }
 
         [Test]

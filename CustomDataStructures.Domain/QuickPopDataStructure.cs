@@ -4,7 +4,11 @@
     {
         private IComparer<T> Comparer { get; set; }
 
-        // HACK TODO: Is it allowed to create only one constructor which will enforce the user to specify, what IComparer<T> will be used?
+        public QuickPopDataStructure()
+        {
+            Comparer = Comparer<T>.Default;
+        }
+
         public QuickPopDataStructure(IComparer<T> comparer)
         {
             Comparer = comparer;
