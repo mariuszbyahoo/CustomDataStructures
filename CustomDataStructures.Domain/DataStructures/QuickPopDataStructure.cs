@@ -6,14 +6,12 @@ namespace CustomDataStructures.Domain.DataStructures
     public class QuickPopDataStructure<T> where T : IComparable<T>
     {
         private QuickPopNode<T>? Greatest { get; set; }
-        private static readonly object _pushLock = new object();
-        private static readonly object _popLock = new object();
+        private static readonly object _lock = new object();
 
         public async Task Push(T newItem)
         {
-            lock (_pushLock)
+            lock (_lock)
             {
-                // HACK TODO: Make those two methods asynchronous and use lock keyword
                 var newNode = new QuickPopNode<T>(newItem);
                 if (Greatest is null)
                 {
@@ -86,7 +84,7 @@ namespace CustomDataStructures.Domain.DataStructures
         /// <returns>If DataStructure is empty, then returns null, otherwise - returns greatest object stored</returns>
         public async Task<T?> Pop()
         {
-            lock (_popLock)
+            lock (_lock)
             {
                 if (Greatest is null) return default; // empty collection
                 var result = Greatest.Value;
