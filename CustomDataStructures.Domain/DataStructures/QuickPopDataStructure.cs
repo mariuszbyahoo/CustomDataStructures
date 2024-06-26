@@ -4,23 +4,7 @@ namespace CustomDataStructures.Domain.DataStructures
 {
     public class QuickPopDataStructure<T> where T : class, IComparable<T>
     {
-        /// <summary>
-        /// Is this necessary?
-        /// </summary>
-        private IComparer<T> Comparer { get; set; }
         private QuickPopNode<T>? Greatest { get; set; }
-
-        public QuickPopDataStructure()
-        {
-            // HACK is this necessary?
-            Comparer = Comparer<T>.Default;
-        }
-
-        public QuickPopDataStructure(IComparer<T> comparer)
-        {
-            // HACK is this necessary?
-            Comparer = comparer;
-        }
 
         public void Push(QuickPopNode<T> newItem)
         {
