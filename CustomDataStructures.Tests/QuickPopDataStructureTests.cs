@@ -22,7 +22,7 @@ namespace CustomDataStructures.Tests
         }
 
         [Test]
-        public void QuickPopDataStructure_WithInt32AsGenericArgAnd3426984PassedInWhenPop_Returns9()
+        public async Task QuickPopDataStructure_WithInt32AsGenericArgAnd3426984PassedInWhenPop_Returns9()
         {
             IntDataStructure.Push(3);
             IntDataStructure.Push(4);
@@ -39,13 +39,13 @@ namespace CustomDataStructures.Tests
                 values stored in order:
                 98664443322
              */
-            var res = IntDataStructure.Pop();
+            var res = await IntDataStructure.Pop();
 
             res.Should().Be(9);
         }
 
         [Test]
-        public void QuickPopDataStructure_WithInt32AsGenericArgAndThreeNumbersPassedInWhenPop_ReturnsGreatestAndDeletesItFromDataStructure()
+        public async Task QuickPopDataStructure_WithInt32AsGenericArgAndThreeNumbersPassedInWhenPop_ReturnsGreatestAndDeletesItFromDataStructure()
         {
             IntDataStructure.Push(3);
             IntDataStructure.Push(4);
@@ -55,10 +55,10 @@ namespace CustomDataStructures.Tests
                 values stored in order:
                 6432
              */
-            var res1 = IntDataStructure.Pop();
-            var res2 = IntDataStructure.Pop();
-            var res3 = IntDataStructure.Pop();
-            var res4 = IntDataStructure.Pop();
+            var res1 = await IntDataStructure.Pop();
+            var res2 = await IntDataStructure.Pop();
+            var res3 = await IntDataStructure.Pop();
+            var res4 = await IntDataStructure.Pop();
 
             res1.Should().Be(6);
             res2.Should().Be(4);
@@ -67,7 +67,7 @@ namespace CustomDataStructures.Tests
         }
 
         [Test]
-        public void QuickPopDataStructure_WithPersonObjectAsGenericArgPassedInWhenPop_ReturnsOldestOne()
+        public async Task QuickPopDataStructure_WithPersonObjectAsGenericArgPassedInWhenPop_ReturnsOldestOne()
         {
             var emma = new Person("Emma", 65);
             PersonDataStructure.Push(new Person("Ann", 16));
@@ -76,7 +76,7 @@ namespace CustomDataStructures.Tests
             PersonDataStructure.Push(new Person("John", 8));
             PersonDataStructure.Push(new Person("Jenny", 25));
 
-            var res = PersonDataStructure.Pop();
+            var res = await PersonDataStructure.Pop();
 
             res.Should().Be(emma);
         }
