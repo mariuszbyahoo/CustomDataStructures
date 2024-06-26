@@ -22,6 +22,30 @@ namespace CustomDataStructures.Tests
             PersonDataStructure = new QuickPopDataStructure<Person>();
         }
 
+        #region DataStructureWithObjectsTest
+
+        // NOTE: due to the fact there will not be many differences in class's work when it comes to different types stored,
+        // I am only adding one test with example Person class - this has to implement IComparable<T> in order to make it possible 
+        // to distinguish which one is bigger and which one is smaller.
+
+        [Test]
+        public async Task QuickPopDataStructure_WithPersonObjectAsGenericArgPassedInWhenPop_ReturnsOldestOne()
+        {
+            var emma = new Person("Emma", 65);
+            await PersonDataStructure.Push(new Person("Ann", 16));
+            await PersonDataStructure.Push(emma);
+            await PersonDataStructure.Push(new Person("Jack", 40));
+            await PersonDataStructure.Push(new Person("John", 8));
+            await PersonDataStructure.Push(new Person("Jenny", 25));
+
+            var res = await PersonDataStructure.Pop();
+
+            res.Should().Be(emma);
+        }
+
+        #endregion
+
+        #region PerformanceTests
         [Test]
         public async Task QuickPopDataStructure_WithInt32AsGenericArgAnd120000NumbersPassedInOnEachPop_WorksSameAmountOfTime()
         {
@@ -68,11 +92,19 @@ namespace CustomDataStructures.Tests
                 result[i] = watch.ElapsedTicks;
             }
 
+            // NOTE: Here there's completely reversed situation when compared to Pop, because regularly, as the dataset grows, it takes more ticks
+            // to insert next number to the dataset, but, from time to time randomNum.Next() will return a number greater than currently stored 
+            // Greatest.Value inside of an IntDataStructure, therefore inserting such a number will take only few ticks - still that's not 
+            // common as it may be seen using debugger and inspecting the results when it comes to 12000 values stored in QuickPopDataStructure
+
             result[3].Should().BeLessThan(result[9000]);
             result[7].Should().BeLessThan(result[10000]);
             result[5].Should().BeLessThan(result[11100]);
         }
 
+        #endregion
+
+        #region UnitTests
         [Test]
         public async Task QuickPopDataStructure_WithInt32AsGenericArgAndElevenNumbersPassedInWhenPop_ReturnsValuesInDescendingOrder()
         {
@@ -152,8 +184,38 @@ namespace CustomDataStructures.Tests
             res9.Should().Be(0);            
         }
 
+        [Test]
+        public async Task QuickPopDataStructure_WithInt32AsGenericArgAndFourNumbersPassedInWhenPop_ReturnsGreatestAndDeletesItFromDataStructure()
+        {
+            await IntDataStructure.Push(3);
+            await IntDataStructure.Push(4);
+            await IntDataStructure.Push(2);
+            await IntDataStructure.Push(6);
+            /*
+                values stored in order:
+                6432
+             */
+            var res1 = await IntDataStructure.Pop();
+            var res2 = await IntDataStructure.Pop();
+            var res3 = await IntDataStructure.Pop();
+            var res4 = await IntDataStructure.Pop();
+
+            var res5 = await IntDataStructure.Pop(); // res5 receives default value
+
+            res1.Should().Be(6);
+            res2.Should().Be(4);
+            res3.Should().Be(3);
+            res4.Should().Be(2);
+
+            res5.Should().Be(default(int)); // res5 receives default value
+        }
+
+        #endregion
+
         #region commentedTests 
+
         // NOTE:two of the tests below are returning different values when called, I am omitting those for now.
+        // Leaving the below just for reference and further discussion 
 
         //[Test]
         //public async Task QuickPopDataStructure_WithInt32AsGenericArgAndNineNumbersPassedInWhenPopAndPushCalledOnMultipleThreads_ReturnsExpectedResult()
@@ -222,50 +284,5 @@ namespace CustomDataStructures.Tests
         //}
 
         #endregion
-
-        [Test]
-        public async Task QuickPopDataStructure_WithInt32AsGenericArgAndFourNumbersPassedInWhenPop_ReturnsGreatestAndDeletesItFromDataStructure()
-        {
-            await IntDataStructure.Push(3);
-            await IntDataStructure.Push(4);
-            await IntDataStructure.Push(2);
-            await IntDataStructure.Push(6);
-            /*
-                values stored in order:
-                6432
-             */
-            var res1 = await IntDataStructure.Pop();
-            var res2 = await IntDataStructure.Pop();
-            var res3 = await IntDataStructure.Pop();
-            var res4 = await IntDataStructure.Pop();
-
-            var res5 = await IntDataStructure.Pop(); // res5 receives default value
-
-            res1.Should().Be(6);
-            res2.Should().Be(4);
-            res3.Should().Be(3);
-            res4.Should().Be(2);
-
-            res5.Should().Be(default(int)); // res5 receives default value
-        }
-
-        [Test]
-        public async Task QuickPopDataStructure_WithPersonObjectAsGenericArgPassedInWhenPop_ReturnsOldestOne()
-        {
-            var emma = new Person("Emma", 65);
-            await PersonDataStructure.Push(new Person("Ann", 16));
-            await PersonDataStructure.Push(emma);
-            await PersonDataStructure.Push(new Person("Jack", 40));
-            await PersonDataStructure.Push(new Person("John", 8));
-            await PersonDataStructure.Push(new Person("Jenny", 25));
-
-            var res = await PersonDataStructure.Pop();
-
-            res.Should().Be(emma);
-        }
-
-        // HACK TODO: Test is QuickPopDataStructure performing Push operation in O(n)
-
-        // HACK TODO: Test is QuickPopDataStructure performing Pop operation in O(1)
     }
 }
