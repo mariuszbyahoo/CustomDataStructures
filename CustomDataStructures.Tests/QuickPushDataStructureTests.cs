@@ -1,3 +1,5 @@
+using CustomDataStructures.DTOs;
+
 namespace CustomDataStructures.Tests
 {
     public class QuickPushDataStructureTests

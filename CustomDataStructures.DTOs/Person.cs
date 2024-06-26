@@ -1,4 +1,4 @@
-﻿namespace CustomDataStructures.Models
+﻿namespace CustomDataStructures.DTOs
 {
     public class Person : IComparable<Person>
     {
@@ -13,7 +13,7 @@
 
         public int CompareTo(Person? other)
         {
-            if(other is null)
+            if (other is null)
             {
                 return 1;
             }
