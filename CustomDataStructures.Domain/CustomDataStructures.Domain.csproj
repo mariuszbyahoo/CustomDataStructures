@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CustomDataStructures.DTOs\CustomDataStructures.DTOs.csproj" />
+  </ItemGroup>
+
 </Project>

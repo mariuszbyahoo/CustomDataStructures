@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CustomDataStructures.Domain.Models
 {
-    public class QuickPopNode<T> : IComparable<QuickPopNode<T>> where T : class, IComparable<T>
+    public class QuickPopNode<T> : IComparable<QuickPopNode<T>> where T : IComparable<T>
     {
         /// <summary>
         /// Property linking to greater object / value
@@ -21,7 +21,7 @@ namespace CustomDataStructures.Domain.Models
         /// If null - then a node represents currently greatest object / value
         /// </summary>
         public QuickPopNode<T>? Previous { get; set; }
-        public QuickPopNode(QuickPopNode<T> next = null, QuickPopNode<T>? previous = null)
+        public QuickPopNode(T value, QuickPopNode<T> next = null, QuickPopNode<T>? previous = null)
         {
             if (next != null)
             {

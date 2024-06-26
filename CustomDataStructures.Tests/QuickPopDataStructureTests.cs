@@ -1,4 +1,5 @@
 ﻿using CustomDataStructures.Domain.DataStructures;
+using CustomDataStructures.Domain.Models;
 using CustomDataStructures.DTOs;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,7 @@ namespace CustomDataStructures.Tests
         [Test]
         public void QuickPopDataStructure_WithPersonObjectAsGenericArgPassedInWhenPop_ReturnsOldestOne()
         {
-            var emma = new Person("Emma", 65);
+            var emma = new QuickPopNode<Person>(new Person("Emma", 65));
             PersonDataStructure.Push(new Person("Ann", 16));
             PersonDataStructure.Push(emma);
             PersonDataStructure.Push(new Person("Jack", 40));

@@ -1,28 +1,30 @@
 ﻿using CustomDataStructures.Domain.Models;
+using CustomDataStructures.DTOs;
 
 namespace CustomDataStructures.Domain.DataStructures
 {
-    public class QuickPopDataStructure<T> where T : class, IComparable<T>
+    public class QuickPopDataStructure<T> where T : IComparable<T>
     {
         private QuickPopNode<T>? Greatest { get; set; }
 
-        public void Push(QuickPopNode<T> newItem)
+        public void Push(T newItem)
         {
+            var newNode = new QuickPopNode<T>(newItem);
             if(Greatest is null)
             {
-                Greatest = newItem;
+                Greatest = newNode;
             }
             else
             {
-                switch (Greatest.CompareTo(newItem))
+                switch (Greatest.CompareTo(newNode))
                 {
                     case -1:
-                        Greatest.Next = newItem;
-                        Greatest = newItem;
+                        Greatest.Next = newNode;
+                        Greatest = newNode;
                         break;
                     case 0:
-                        Greatest.Next = newItem;
-                        Greatest = newItem;
+                        Greatest.Next = newNode;
+                        Greatest = newNode;
                         break;
                     default:
                         // Greatest is bigger than item
@@ -30,22 +32,22 @@ namespace CustomDataStructures.Domain.DataStructures
                         var currentLookUp = Greatest.Previous; // in case there's only one element in the structure
                         if (currentLookUp is null)
                         {
-                            Greatest.Previous = newItem;
-                            newItem.Next = Greatest;
+                            Greatest.Previous = newNode;
+                            newNode.Next = Greatest;
                         }
                         else
                         {
                             do
                             {
                                 // Compare all of the elements in the data set, one after another. 
-                                var isLookupSmaller = currentLookUp.CompareTo(newItem) < 0;
+                                var isLookupSmaller = currentLookUp.CompareTo(newNode) < 0;
                                 if (isLookupSmaller)
                                 {
                                     // I assume that currentLookUp has been added earlier, so it has to contain value inside Next prop.
-                                    newItem.Next = currentLookUp.Next;
-                                    newItem.Previous = currentLookUp.Previous;
-                                    currentLookUp.Next.Previous = newItem; 
-                                    currentLookUp.Next = newItem;
+                                    newNode.Next = currentLookUp.Next;
+                                    newNode.Previous = currentLookUp.Previous;
+                                    currentLookUp.Next.Previous = newNode; 
+                                    currentLookUp.Next = newNode;
                                     keepSearching = false;
                                 }
                                 else
@@ -66,7 +68,8 @@ namespace CustomDataStructures.Domain.DataStructures
         /// <returns>If DataStructure is empty, then returns null, otherwise - returns greatest object stored</returns>
         public T? Pop()
         {
-            return Greatest?.Value;
+            if (Greatest == null) return default;
+            return Greatest.Value;
         }
     }
 }
