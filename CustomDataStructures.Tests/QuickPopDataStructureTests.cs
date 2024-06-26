@@ -31,7 +31,14 @@ namespace CustomDataStructures.Tests
             IntDataStructure.Push(9);
             IntDataStructure.Push(8);
             IntDataStructure.Push(4);
-
+            IntDataStructure.Push(3);
+            IntDataStructure.Push(4);
+            IntDataStructure.Push(2);
+            IntDataStructure.Push(6);
+            /*
+                values stored in order:
+                98664443322
+             */
             var res = IntDataStructure.Pop();
 
             res.Should().Be(9);
@@ -52,8 +59,8 @@ namespace CustomDataStructures.Tests
             res.Should().Be(emma);
         }
 
-        // HACK TODO: Test is QuickPopDataStructure performing Push operation in O(1)
+        // HACK TODO: Test is QuickPopDataStructure performing Push operation in O(n)
 
-        // HACK TODO: Test is QuickPopDataStructure performing Pop operation in O(n)
+        // HACK TODO: Test is QuickPopDataStructure performing Pop operation in O(1)
     }
 }

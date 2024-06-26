@@ -9,6 +9,7 @@ namespace CustomDataStructures.Domain.DataStructures
 
         public void Push(T newItem)
         {
+            // HACK TODO: Make those two methods asynchronous and use lock keyword
             var newNode = new QuickPopNode<T>(newItem);
             if(Greatest is null)
             {
@@ -47,7 +48,7 @@ namespace CustomDataStructures.Domain.DataStructures
                                 {
                                     // I assume that currentLookUp has been added earlier, so it has to contain value inside Next prop.
                                     newNode.Next = currentLookUp.Next;
-                                    newNode.Previous = currentLookUp.Previous;
+                                    newNode.Previous = currentLookUp;
                                     currentLookUp.Next.Previous = newNode; 
                                     currentLookUp.Next = newNode;
                                     keepSearching = false;
@@ -59,7 +60,7 @@ namespace CustomDataStructures.Domain.DataStructures
                                     if (currentLookUp.Previous is null)
                                     {
                                         currentLookUp.Previous = newNode;
-                                        newNode.Next = currentLookUp.Next;
+                                        newNode.Next = currentLookUp;
                                         keepSearching = false;
                                     }
                                     else
