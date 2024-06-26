@@ -45,6 +45,28 @@ namespace CustomDataStructures.Tests
         }
 
         [Test]
+        public void QuickPopDataStructure_WithInt32AsGenericArgAndThreeNumbersPassedInWhenPop_ReturnsGreatestAndDeletesItFromDataStructure()
+        {
+            IntDataStructure.Push(3);
+            IntDataStructure.Push(4);
+            IntDataStructure.Push(2);
+            IntDataStructure.Push(6);
+            /*
+                values stored in order:
+                6432
+             */
+            var res1 = IntDataStructure.Pop();
+            var res2 = IntDataStructure.Pop();
+            var res3 = IntDataStructure.Pop();
+            var res4 = IntDataStructure.Pop();
+
+            res1.Should().Be(6);
+            res2.Should().Be(4);
+            res3.Should().Be(3);
+            res4.Should().Be(2);
+        }
+
+        [Test]
         public void QuickPopDataStructure_WithPersonObjectAsGenericArgPassedInWhenPop_ReturnsOldestOne()
         {
             var emma = new Person("Emma", 65);

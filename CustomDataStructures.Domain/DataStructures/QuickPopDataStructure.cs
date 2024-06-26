@@ -7,7 +7,7 @@ namespace CustomDataStructures.Domain.DataStructures
     {
         private QuickPopNode<T>? Greatest { get; set; }
 
-        public void Push(T newItem)
+        public async Task Push(T newItem)
         {
             // HACK TODO: Make those two methods asynchronous and use lock keyword
             var newNode = new QuickPopNode<T>(newItem);
@@ -42,7 +42,7 @@ namespace CustomDataStructures.Domain.DataStructures
                         {
                             do
                             {
-                                // Compare all of the elements in the data set, one after another. 
+                                // Compare all of the elements in the data set, one after another.
                                 var compareResult = currentLookUp.CompareTo(newNode);
                                 if (compareResult == -1 || compareResult == 0)
                                 {
@@ -81,8 +81,11 @@ namespace CustomDataStructures.Domain.DataStructures
         /// <returns>If DataStructure is empty, then returns null, otherwise - returns greatest object stored</returns>
         public T? Pop()
         {
-            if (Greatest == null) return default;
-            return Greatest.Value;
+            if (Greatest is null) return default; // empty collection
+            var result = Greatest.Value;
+            Greatest = Greatest.Previous is null ? default : Greatest.Previous;
+            if(Greatest is not null) Greatest.Next = default;
+            return result;
         }
     }
 }
