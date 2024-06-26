@@ -23,6 +23,7 @@ namespace CustomDataStructures.Domain.Models
         public QuickPopNode<T>? Previous { get; set; }
         public QuickPopNode(T value, QuickPopNode<T> next = null, QuickPopNode<T>? previous = null)
         {
+            Value = value;
             if (next != null)
             {
                 Next = next;
