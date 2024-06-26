@@ -202,5 +202,6 @@ namespace CustomDataStructures.Tests
 
             res5.Should().Be(default(int)); // res5 receives default value
         }
+        #endregion
     }
 }

@@ -5,14 +5,14 @@ namespace CustomDataStructures.Domain.DataStructures
 {
     public class QuickPopDataStructure<T> where T : IComparable<T>
     {
-        private QuickPopNode<T>? Greatest { get; set; }
+        private Node<T>? Greatest { get; set; }
         private static readonly object _lock = new object();
 
         public async Task Push(T newItem)
         {
             lock (_lock)
             {
-                var newNode = new QuickPopNode<T>(newItem);
+                var newNode = new Node<T>(newItem);
                 if (Greatest is null)
                 {
                     Greatest = newNode;
