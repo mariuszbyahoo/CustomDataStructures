@@ -47,7 +47,7 @@ namespace CustomDataStructures.Tests
 
         #region PerformanceTests
         [Test]
-        public async Task QuickPopDataStructure_WithInt32AsGenericArgAnd120000NumbersPassedInOnEachPop_WorksSameAmountOfTime()
+        public async Task QuickPopDataStructure_WithInt32AsGenericArgAnd120000NumbersPassedInOnEachPop_TakesAlmostSameAmountOfTime()
         {
             var randomNum = new Random();
 

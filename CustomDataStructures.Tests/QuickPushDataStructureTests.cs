@@ -51,41 +51,39 @@ namespace CustomDataStructures.Tests
 
         #endregion
 
-        //#region PerformanceTests
-        //[Test]
-        //public async Task QuickPushDataStructure_WithInt32AsGenericArgAnd120000NumbersPassedInOnEachPush_WorksSameAmountOfTime()
-        //{
-        //    var randomNum = new Random();
-
-        //    for (int i = 1; i < 12100; i++)
-        //    {
-        //        var currentValue = randomNum.Next(0, 4000);
-        //        await (IntDataStructure.Push(currentValue));
-        //    }
-        //    var output = new long[12100];
-        //    var result = new List<long>();
-        //    for (int i = 0; i < 12100; i++)
-        //    {
-        //        var watch = System.Diagnostics.Stopwatch.StartNew();
-        //        var value = await IntDataStructure.Pop();
-        //        watch.Stop();
-        //        output[i] = watch.ElapsedTicks;
-        //    }
-
-        //    // NOTE: Most of the calls takes 1-3 ticks to finish work. But due to the fact what as the dataset becames larger and larger, 
-        //    // per Nth element of a result array (amount of ticks) can be unordinarily greater, for example 7 elements out of 120, two first,
-        //    // and later on - each 20th or so, those can get even 30 ticks instead of just 1
-        //    // Moreover, first two occurences takes most of the time.
-
-        //    output[3].Should().BeCloseTo(output[3800], 40);
-        //    output[7].Should().BeCloseTo(output[2200], 40);
-        //    output[5].Should().BeCloseTo(output[11100], 40);
-        //    result = new List<long>(output.Where(n => n < 4));
-        //    result.Count.Should().BeCloseTo(12000, 500);
-        //}
+        #region PerformanceTests
 
         [Test]
-        public async Task QuickPushDataStructure_WithInt32AsGenericArgAnd10000NumbersPassedIn_TakesAlmostSameTimeToComplete()
+        public async Task QuickPushDataStructure_WithInt32AsGenericArgAnd10000NumbersPassedInOnEachPop_WorksSlowerWithEachObjectStored()
+        {
+            var randomNum = new Random();
+
+            for (int i = 1; i < 10000; i++)
+            {
+                var currentValue = randomNum.Next(0, 40000);
+                await (IntDataStructure.Push(currentValue));
+            }
+            var output = new long[10000];
+            var result = new List<long>();
+            for (int i = 0; i < 10000; i++)
+            {
+                var watch = System.Diagnostics.Stopwatch.StartNew();
+                var value = await IntDataStructure.Pop();
+                watch.Stop();
+                output[i] = watch.ElapsedTicks;
+            }
+            // HACK: It is reversely optimal to expected - the more numbers stored, the faster the data structure performs Pop()
+            // NOTE: HACK TODO
+
+            output[3].Should().BeLessThan(output[3800]);
+            output[7].Should().BeLessThan(output[2200]);
+            output[5].Should().BeLessThan(output[11100]);
+            result = new List<long>(output.Where(n => n < 4));
+            result.Count.Should().BeCloseTo(12000, 500);
+        }
+
+        [Test]
+        public async Task QuickPushDataStructure_WithInt32AsGenericArgAnd10000NumbersPassedIn_TakesAlmostSameAmountOfTime()
         {
             var result = new long[10000];
             var randomNum = new Random();
@@ -105,9 +103,10 @@ namespace CustomDataStructures.Tests
             result[5].Should().BeCloseTo(result[5000], 40);
         }
 
-        //#endregion
+        #endregion
 
         #region UnitTests
+
         [Test]
         public async Task QuickPushDataStructure_WithInt32AsGenericArgAndElevenNumbersPassedInWhenPop_ReturnsValuesInDescendingOrder()
         {
