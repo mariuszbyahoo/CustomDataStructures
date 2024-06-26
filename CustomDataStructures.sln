@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomDataStructures.App", "CustomDataStructures.App\CustomDataStructures.App.csproj", "{34D16EB0-5ED3-4509-BED7-699681472638}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomDataStructures.Domain", "CustomDataStructures.Domain\CustomDataStructures.Domain.csproj", "{9547AC3E-573D-41A7-8067-6954A7E7E706}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomDataStructures.Tests", "CustomDataStructures.Tests\CustomDataStructures.Tests.csproj", "{8A72291A-A957-4744-9E7C-9857A9C09F9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomDataStructures.DTOs", "CustomDataStructures.DTOs\CustomDataStructures.DTOs.csproj", "{256D4BE6-BBE1-4CA6-ADE3-04722CAAA942}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomDataStructures.DTOs", "CustomDataStructures.DTOs\CustomDataStructures.DTOs.csproj", "{256D4BE6-BBE1-4CA6-ADE3-04722CAAA942}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{34D16EB0-5ED3-4509-BED7-699681472638}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{34D16EB0-5ED3-4509-BED7-699681472638}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{34D16EB0-5ED3-4509-BED7-699681472638}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{34D16EB0-5ED3-4509-BED7-699681472638}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9547AC3E-573D-41A7-8067-6954A7E7E706}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9547AC3E-573D-41A7-8067-6954A7E7E706}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9547AC3E-573D-41A7-8067-6954A7E7E706}.Release|Any CPU.ActiveCfg = Release|Any CPU
