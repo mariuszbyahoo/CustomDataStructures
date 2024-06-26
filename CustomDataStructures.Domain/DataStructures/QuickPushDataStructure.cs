@@ -28,11 +28,12 @@ namespace CustomDataStructures.Domain.DataStructures
             lock (_lock)
             {
                 // FIFO
-                var newNode = new Node<T>(item, null, Current);
+                var newNode = new Node<T>(item);
                 if (Current is null) Current = newNode;
                 else
                 {
                     Current.Next = newNode;
+                    newNode.Previous = Current;
                     Current = newNode;
                 }
             }
@@ -50,6 +51,8 @@ namespace CustomDataStructures.Domain.DataStructures
                 {
                     #region loop
 
+                    // Problem polega na tym że dochodzi do samego końca i wtedy nie widzi pozostałych już
+
                     // I want to store reference to the greatest one, and if loop reaches an end of the data structure - then proceed to point 2, 
                     // 1. identify greatest one:
 
@@ -66,19 +69,32 @@ namespace CustomDataStructures.Domain.DataStructures
                     if(currentLookup is null) return default(T);
                     else
                     {
-                        if(currentLookup.Previous is null) // only one element in data structure
+                        if (currentLookup.Previous is null) // only one element in data structure
                         {
                             keepSearching = false;
                         }
-                        else if(currentLookup.Previous.CompareTo(greatest) == 1)
+                        else
                         {
-                            greatest = currentLookup.Previous;
+                            if (currentLookup.Previous.CompareTo(greatest) == 1)
+                            {
+                                greatest = currentLookup.Previous;
+                            }
+                            // W przypadku duplikatu, czyli 6 6 powinien odpuścić sobie pierwszą 6 i zająć się następną currentLookup przypisaną poniżej, a ta już powinna mieć
+                            // referencję do czego innego (9 bodajże)
+                            currentLookup = currentLookup.Previous;
                         }
-                        currentLookup = currentLookup.Previous;
                     }
                 } while (keepSearching);
-                if(greatest.Previous is not null) greatest.Previous.Next = greatest.Next;
-                if(greatest.Next is not null) greatest.Next.Previous = greatest.Previous;
+                // Current = greatest.Previous;
+                // Jeśli największy będzie przedostatni, to wszystko się spieprzy bo wtedy gubi referencje do pozostałych.
+                if (greatest.Previous is not null)
+                {
+                    greatest.Previous.Next = greatest.Next; // tu się gubi bo Ann nie ma poprzednika, więc wszystko się pierdoli.
+                }
+                if (greatest.Next is not null)
+                {
+                    greatest.Next.Previous = greatest.Previous;
+                }
                 return greatest.Value;
 
 

@@ -1,4 +1,4 @@
-using CustomDataStructures.Domain.DataStructures;
+﻿using CustomDataStructures.Domain.DataStructures;
 using CustomDataStructures.DTOs;
 
 namespace CustomDataStructures.Tests
@@ -32,6 +32,11 @@ namespace CustomDataStructures.Tests
             await PersonDataStructure.Push(new Person("Jenny", 25));
 
             var res = await PersonDataStructure.Pop();
+            var res2 = await PersonDataStructure.Pop();
+            // Teraz wyciąga Jack i Emma, potem wypluwa w kółko Jenny
+            var res3 = await PersonDataStructure.Pop();
+            var res4 = await PersonDataStructure.Pop();
+            var res5 = await PersonDataStructure.Pop();
 
             res.Should().Be(emma);
         }
