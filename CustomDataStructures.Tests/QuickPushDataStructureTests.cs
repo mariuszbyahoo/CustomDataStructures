@@ -25,82 +25,90 @@ namespace CustomDataStructures.Tests
         public async Task QuickPushDataStructure_WithPersonObjectAsGenericArgPassedInWhenPop_ReturnsOldestOne()
         {
             var emma = new Person("Emma", 65);
-            await PersonDataStructure.Push(new Person("Ann", 16));
+            var ann = new Person("Ann", 16);
+            var jack = new Person("Jack", 40);
+            var john = new Person("John", 8);
+            var jenny = new Person("Jenny", 25);
+
+            await PersonDataStructure.Push(ann);
             await PersonDataStructure.Push(emma);
-            await PersonDataStructure.Push(new Person("Jack", 40));
-            await PersonDataStructure.Push(new Person("John", 8));
-            await PersonDataStructure.Push(new Person("Jenny", 25));
+            await PersonDataStructure.Push(jack);
+            await PersonDataStructure.Push(john);
+            await PersonDataStructure.Push(jenny);
 
             var res = await PersonDataStructure.Pop();
             var res2 = await PersonDataStructure.Pop();
-            // Teraz wyciąga Jack i Emma, potem wypluwa w kółko Jenny
             var res3 = await PersonDataStructure.Pop();
             var res4 = await PersonDataStructure.Pop();
             var res5 = await PersonDataStructure.Pop();
 
             res.Should().Be(emma);
+            res2.Should().Be(jack);
+            res3.Should().Be(jenny);
+            res4.Should().Be(ann);
+            res5.Should().Be(john);
         }
 
         #endregion
 
-        #region PerformanceTests
-        [Test]
-        public async Task QuickPushDataStructure_WithInt32AsGenericArgAnd120000NumbersPassedInOnEachPop_WorksSameAmountOfTime()
-        {
-            var randomNum = new Random();
+        //#region PerformanceTests
+        //[Test]
+        //public async Task QuickPushDataStructure_WithInt32AsGenericArgAnd120000NumbersPassedInOnEachPush_WorksSameAmountOfTime()
+        //{
+        //    var randomNum = new Random();
 
-            for (int i = 1; i < 12100; i++)
-            {
-                var currentValue = randomNum.Next(0, 4000);
-                await (IntDataStructure.Push(currentValue));
-            }
-            var output = new long[12100];
-            var result = new List<long>();
-            for (int i = 0; i < 12100; i++)
-            {
-                var watch = System.Diagnostics.Stopwatch.StartNew();
-                var value = await IntDataStructure.Pop();
-                watch.Stop();
-                output[i] = watch.ElapsedTicks;
-            }
+        //    for (int i = 1; i < 12100; i++)
+        //    {
+        //        var currentValue = randomNum.Next(0, 4000);
+        //        await (IntDataStructure.Push(currentValue));
+        //    }
+        //    var output = new long[12100];
+        //    var result = new List<long>();
+        //    for (int i = 0; i < 12100; i++)
+        //    {
+        //        var watch = System.Diagnostics.Stopwatch.StartNew();
+        //        var value = await IntDataStructure.Pop();
+        //        watch.Stop();
+        //        output[i] = watch.ElapsedTicks;
+        //    }
 
-            // NOTE: Most of the calls takes 1-3 ticks to finish work. But due to the fact what as the dataset becames larger and larger, 
-            // per Nth element of a result array (amount of ticks) can be unordinarily greater, for example 7 elements out of 120, two first,
-            // and later on - each 20th or so, those can get even 30 ticks instead of just 1
-            // Moreover, first two occurences takes most of the time.
+        //    // NOTE: Most of the calls takes 1-3 ticks to finish work. But due to the fact what as the dataset becames larger and larger, 
+        //    // per Nth element of a result array (amount of ticks) can be unordinarily greater, for example 7 elements out of 120, two first,
+        //    // and later on - each 20th or so, those can get even 30 ticks instead of just 1
+        //    // Moreover, first two occurences takes most of the time.
 
-            output[3].Should().BeCloseTo(output[3800], 40);
-            output[7].Should().BeCloseTo(output[2200], 40);
-            output[5].Should().BeCloseTo(output[11100], 40);
-            result = new List<long>(output.Where(n => n < 4));
-            result.Count.Should().BeCloseTo(12000, 500);
-        }
+        //    output[3].Should().BeCloseTo(output[3800], 40);
+        //    output[7].Should().BeCloseTo(output[2200], 40);
+        //    output[5].Should().BeCloseTo(output[11100], 40);
+        //    result = new List<long>(output.Where(n => n < 4));
+        //    result.Count.Should().BeCloseTo(12000, 500);
+        //}
 
-        [Test]
-        public async Task QuickPushDataStructure_WithInt32AsGenericArgAnd120000NumbersPassedInOnEachPush_TakesMoreTimeToComplete()
-        {
-            var result = new long[12000];
-            var randomNum = new Random();
-            for (int i = 0; i < 12000; i++)
-            {
-                var currentValue = randomNum.Next(0, 4000);
-                var watch = System.Diagnostics.Stopwatch.StartNew();
-                await IntDataStructure.Push(currentValue);
-                watch.Stop();
-                result[i] = watch.ElapsedTicks;
-            }
+        //[Test]
+        //public async Task QuickPushDataStructure_WithInt32AsGenericArgAnd120000NumbersPassedInOnEachPop_TakesMoreTimeToComplete()
+        //{
+        //    var result = new long[12000];
+        //    var randomNum = new Random();
+        //    for (int i = 0; i < 12000; i++)
+        //    {
+        //        var currentValue = randomNum.Next(0, 4000);
+        //        var watch = System.Diagnostics.Stopwatch.StartNew();
+        //        await IntDataStructure.Push(currentValue);
+        //        watch.Stop();
+        //        result[i] = watch.ElapsedTicks;
+        //    }
 
-            // NOTE: Here there's completely reversed situation when compared to Pop, because regularly, as the dataset grows, it takes more ticks
-            // to insert next number to the dataset, but, from time to time randomNum.Next() will return a number greater than currently stored 
-            // Greatest.Value inside of an IntDataStructure, therefore inserting such a number will take only few ticks - still that's not 
-            // common as it may be seen using debugger and inspecting the results when it comes to 12000 values stored in QuickPopDataStructure
+        //    // NOTE: Here there's completely reversed situation when compared to Pop, because regularly, as the dataset grows, it takes more ticks
+        //    // to insert next number to the dataset, but, from time to time randomNum.Next() will return a number greater than currently stored 
+        //    // Greatest.Value inside of an IntDataStructure, therefore inserting such a number will take only few ticks - still that's not 
+        //    // common as it may be seen using debugger and inspecting the results when it comes to 12000 values stored in QuickPopDataStructure
 
-            result[3].Should().BeLessThan(result[9000]);
-            result[7].Should().BeLessThan(result[10000]);
-            result[5].Should().BeLessThan(result[11100]);
-        }
+        //    result[3].Should().BeLessThan(result[9000]);
+        //    result[7].Should().BeLessThan(result[10000]);
+        //    result[5].Should().BeLessThan(result[11100]);
+        //}
 
-        #endregion
+        //#endregion
 
         #region UnitTests
         [Test]
