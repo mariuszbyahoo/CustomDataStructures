@@ -38,11 +38,5 @@ namespace CustomDataStructures.Domain.Models
             if (other is null) return 1;
             else return Value.CompareTo(other.Value);
         }
-
-        /* Jeśli to tak zrobię, wtedy datastructure będzie miał tylko referencję do największego z nich 
-         * - wtedy od strzała będzie mógł wyciągnąć największą liczbę, a dodawanie będzie się odbywało poprzez
-         * porównanie po kolei od największego do najmniejszego, aby wykonać push
-         * można będzie wywołać tę metodę na największym, wtedy po prostu porówna się on z argumentem
-         * i jeśli jest mniejszy od nowego największego, to się zmieni po prostu referencję w QuickPopDataStructure na nowy obiekt i tyle*/
     }
 }
