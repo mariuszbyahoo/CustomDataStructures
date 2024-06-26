@@ -43,6 +43,7 @@ namespace CustomDataStructures.Domain.DataStructures
         {
             lock (_lock)
             {
+                if (Current is null) return default;
                 var biggest = Current;
                 var keepLooking = true;
                 var currentLookup = Current?.Previous;
@@ -72,8 +73,6 @@ namespace CustomDataStructures.Domain.DataStructures
                     }
                 }
 
-                //Rewind();
-
                 var res = biggest;
 
                 if (biggest.Previous is not null)
@@ -89,9 +88,11 @@ namespace CustomDataStructures.Domain.DataStructures
                     biggest.Next.Previous = biggest.Previous;
                 }
 
-                //Current = biggest.Previous is not null ? biggest.Previous : biggest.Next; // po dodaniu tej linii kasuje właściwie wszystkie wszystkie wpisy ale nie chce w ogóle sortować
-
-                Console.WriteLine(Current);
+                if (biggest.Next is null && biggest.Previous is null)
+                {
+                    // last element being popped
+                    Current = default;
+                }
                 return res.Value;
             }
         }
