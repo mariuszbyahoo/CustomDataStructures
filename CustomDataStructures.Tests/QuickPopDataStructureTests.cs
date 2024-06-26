@@ -1,4 +1,5 @@
-﻿using CustomDataStructures.DTOs;
+﻿using CustomDataStructures.Domain.DataStructures;
+using CustomDataStructures.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;

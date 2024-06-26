@@ -1,15 +1,20 @@
-﻿namespace CustomDataStructures.Domain
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CustomDataStructures.Domain.DataStructures
 {
-    public class QuickPopDataStructure<T> where T : IComparable<T>
+    public class QuickPushDataStructure<T> where T : IComparable<T>
     {
         private IComparer<T> Comparer { get; set; }
 
-        public QuickPopDataStructure()
+        public QuickPushDataStructure()
         {
             Comparer = Comparer<T>.Default;
         }
-
-        public QuickPopDataStructure(IComparer<T> comparer)
+        public QuickPushDataStructure(IComparer<T> comparer)
         {
             Comparer = comparer;
         }

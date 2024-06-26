@@ -1,3 +1,4 @@
+using CustomDataStructures.Domain.DataStructures;
 using CustomDataStructures.DTOs;
 
 namespace CustomDataStructures.Tests
