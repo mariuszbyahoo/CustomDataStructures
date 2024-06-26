@@ -22,30 +22,55 @@ namespace CustomDataStructures.Domain.DataStructures
             Comparer = comparer;
         }
 
-        public void Push(QuickPopNode<T> item)
+        public void Push(QuickPopNode<T> newItem)
         {
             if(Greatest is null)
             {
-                Greatest = item;
+                Greatest = newItem;
             }
             else
             {
-                switch (Greatest.CompareTo(item))
+                switch (Greatest.CompareTo(newItem))
                 {
                     case -1:
-                        Greatest.Next = item;
-                        Greatest = item;
+                        Greatest.Next = newItem;
+                        Greatest = newItem;
                         break;
                     case 0:
-                        Greatest.Next = item;
-                        Greatest = item;
+                        Greatest.Next = newItem;
+                        Greatest = newItem;
                         break;
                     default:
-
-                        /* Greatest jest większy 
-                         *
-                         *
-                         */
+                        // Greatest is bigger than item
+                        var keepSearching = true;
+                        var currentLookUp = Greatest.Previous; // in case there's only one element in the structure
+                        if (currentLookUp is null)
+                        {
+                            Greatest.Previous = newItem;
+                            newItem.Next = Greatest;
+                        }
+                        else
+                        {
+                            do
+                            {
+                                // Compare all of the elements in the data set, one after another. 
+                                var isLookupSmaller = currentLookUp.CompareTo(newItem) < 0;
+                                if (isLookupSmaller)
+                                {
+                                    // I assume that currentLookUp has been added earlier, so it has to contain value inside Next prop.
+                                    newItem.Next = currentLookUp.Next;
+                                    newItem.Previous = currentLookUp.Previous;
+                                    currentLookUp.Next.Previous = newItem; 
+                                    currentLookUp.Next = newItem;
+                                    keepSearching = false;
+                                }
+                                else
+                                {
+                                    // currentLookUp is greater or equal to the newItem, keep searching
+                                    currentLookUp = currentLookUp.Previous;
+                                }
+                            } while (keepSearching);
+                        }
                         break;
                 }
             }
