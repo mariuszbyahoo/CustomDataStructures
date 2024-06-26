@@ -26,7 +26,6 @@
   <ItemGroup>
     <ProjectReference Include="..\CustomDataStructures.Domain\CustomDataStructures.Domain.csproj" />
     <ProjectReference Include="..\CustomDataStructures.DTOs\CustomDataStructures.DTOs.csproj" />
-    <ProjectReference Include="..\CustomDataStructures.Models\CustomDataStructures.Models.csproj" />
   </ItemGroup>
 
 </Project>
