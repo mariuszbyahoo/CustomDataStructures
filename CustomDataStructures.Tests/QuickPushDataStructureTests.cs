@@ -84,29 +84,26 @@ namespace CustomDataStructures.Tests
         //    result.Count.Should().BeCloseTo(12000, 500);
         //}
 
-        //[Test]
-        //public async Task QuickPushDataStructure_WithInt32AsGenericArgAnd120000NumbersPassedInOnEachPop_TakesMoreTimeToComplete()
-        //{
-        //    var result = new long[12000];
-        //    var randomNum = new Random();
-        //    for (int i = 0; i < 12000; i++)
-        //    {
-        //        var currentValue = randomNum.Next(0, 4000);
-        //        var watch = System.Diagnostics.Stopwatch.StartNew();
-        //        await IntDataStructure.Push(currentValue);
-        //        watch.Stop();
-        //        result[i] = watch.ElapsedTicks;
-        //    }
+        [Test]
+        public async Task QuickPushDataStructure_WithInt32AsGenericArgAnd10000NumbersPassedIn_TakesAlmostSameTimeToComplete()
+        {
+            var result = new long[10000];
+            var randomNum = new Random();
+            for (int i = 0; i < 10000; i++)
+            {
+                var currentValue = randomNum.Next(0, 4000);
+                var watch = System.Diagnostics.Stopwatch.StartNew();
+                await IntDataStructure.Push(currentValue);
+                watch.Stop();
+                result[i] = watch.ElapsedTicks;
+            }
 
-        //    // NOTE: Here there's completely reversed situation when compared to Pop, because regularly, as the dataset grows, it takes more ticks
-        //    // to insert next number to the dataset, but, from time to time randomNum.Next() will return a number greater than currently stored 
-        //    // Greatest.Value inside of an IntDataStructure, therefore inserting such a number will take only few ticks - still that's not 
-        //    // common as it may be seen using debugger and inspecting the results when it comes to 12000 values stored in QuickPopDataStructure
+            // NOTE: HACK TODO
 
-        //    result[3].Should().BeLessThan(result[9000]);
-        //    result[7].Should().BeLessThan(result[10000]);
-        //    result[5].Should().BeLessThan(result[11100]);
-        //}
+            result[3].Should().BeCloseTo(result[9000], 40);
+            result[7].Should().BeCloseTo(result[7500], 40);
+            result[5].Should().BeCloseTo(result[5000], 40);
+        }
 
         //#endregion
 
