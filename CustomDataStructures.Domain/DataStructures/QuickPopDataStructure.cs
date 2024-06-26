@@ -20,10 +20,12 @@ namespace CustomDataStructures.Domain.DataStructures
                 {
                     case -1:
                         Greatest.Next = newNode;
+                        newNode.Previous = Greatest;
                         Greatest = newNode;
                         break;
                     case 0:
                         Greatest.Next = newNode;
+                        newNode.Previous = Greatest;
                         Greatest = newNode;
                         break;
                     default:
@@ -40,8 +42,8 @@ namespace CustomDataStructures.Domain.DataStructures
                             do
                             {
                                 // Compare all of the elements in the data set, one after another. 
-                                var isLookupSmaller = currentLookUp.CompareTo(newNode) < 0;
-                                if (isLookupSmaller)
+                                var compareResult = currentLookUp.CompareTo(newNode);
+                                if (compareResult == -1 || compareResult == 0)
                                 {
                                     // I assume that currentLookUp has been added earlier, so it has to contain value inside Next prop.
                                     newNode.Next = currentLookUp.Next;
@@ -53,7 +55,17 @@ namespace CustomDataStructures.Domain.DataStructures
                                 else
                                 {
                                     // currentLookUp is greater or equal to the newItem, keep searching
-                                    currentLookUp = currentLookUp.Previous;
+                                    // jeśli currentLookUp.Previous is null, wtedy umieść na koniec.
+                                    if (currentLookUp.Previous is null)
+                                    {
+                                        currentLookUp.Previous = newNode;
+                                        newNode.Next = currentLookUp.Next;
+                                        keepSearching = false;
+                                    }
+                                    else
+                                    {
+                                        currentLookUp = currentLookUp.Previous;
+                                    }
                                 }
                             } while (keepSearching);
                         }
