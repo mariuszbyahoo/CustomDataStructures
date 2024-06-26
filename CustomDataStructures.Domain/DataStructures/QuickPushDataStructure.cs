@@ -19,12 +19,12 @@ namespace CustomDataStructures.Domain.DataStructures
             Comparer = comparer;
         }
 
-        public void Push(T item)
+        public async Task Push(T item)
         {
             throw new NotImplementedException();
         }
 
-        public T Pop()
+        public async Task<T> Pop()
         {
             throw new NotImplementedException();
         }
