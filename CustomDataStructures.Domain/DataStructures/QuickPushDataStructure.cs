@@ -74,10 +74,11 @@ namespace CustomDataStructures.Domain.DataStructures
                         {
                             greatest = currentLookup.Previous;
                         }
+                        currentLookup = currentLookup.Previous;
                     }
                 } while (keepSearching);
-                greatest.Previous.Next = greatest.Next;
-                greatest.Next.Previous = greatest.Previous;
+                if(greatest.Previous is not null) greatest.Previous.Next = greatest.Next;
+                if(greatest.Next is not null) greatest.Next.Previous = greatest.Previous;
                 return greatest.Value;
 
 

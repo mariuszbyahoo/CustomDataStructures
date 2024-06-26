@@ -22,7 +22,7 @@ namespace CustomDataStructures.Tests
         // to distinguish which one is bigger and which one is smaller.
 
         [Test]
-        public async Task QuickPopDataStructure_WithPersonObjectAsGenericArgPassedInWhenPop_ReturnsOldestOne()
+        public async Task QuickPushDataStructure_WithPersonObjectAsGenericArgPassedInWhenPop_ReturnsOldestOne()
         {
             var emma = new Person("Emma", 65);
             await PersonDataStructure.Push(new Person("Ann", 16));
