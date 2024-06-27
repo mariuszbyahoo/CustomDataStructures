@@ -47,7 +47,7 @@ namespace CustomDataStructures.Domain.DataStructures
                         var compRes = currentLookup.CompareTo(biggest);
                         if (compRes <= 0)
                         {
-                            // currentLookup is smaller than biggest
+                            // currentLookup is smaller or equal to biggest
                             currentLookup = currentLookup.Previous;
                         }
                         else 
