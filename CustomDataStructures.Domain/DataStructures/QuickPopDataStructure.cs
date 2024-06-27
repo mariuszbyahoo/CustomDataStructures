@@ -51,14 +51,13 @@ namespace CustomDataStructures.Domain.DataStructures
                                         // I assume that currentLookUp has been added earlier, so it has to contain value inside Next prop.
                                         newNode.Next = currentLookUp.Next;
                                         newNode.Previous = currentLookUp;
-                                        currentLookUp.Next.Previous = newNode;
-                                        currentLookUp.Next = newNode;
+                                        currentLookUp.Next.Previous = newNode; // first update currentLookup.Next.Previous's reference to newNode
+                                        currentLookUp.Next = newNode; // then replace the old currentLookup.Next with newNode
                                         keepSearching = false;
                                     }
                                     else
                                     {
                                         // currentLookUp is greater or equal to the newItem, keep searching
-                                        // jeśli currentLookUp.Previous is null, wtedy umieść na koniec.
                                         if (currentLookUp.Previous is null)
                                         {
                                             currentLookUp.Previous = newNode;
