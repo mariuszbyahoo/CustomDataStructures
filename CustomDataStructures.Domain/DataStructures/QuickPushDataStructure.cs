@@ -11,18 +11,7 @@ namespace CustomDataStructures.Domain.DataStructures
     public class QuickPushDataStructure<T> where T : IComparable<T>
     {
         private static readonly object _lock = new object();
-        private IComparer<T> Comparer { get; set; }
-
         public Node<T>? Current { get; set; }
-
-        public QuickPushDataStructure()
-        {
-            Comparer = Comparer<T>.Default;
-        }
-        public QuickPushDataStructure(IComparer<T> comparer)
-        {
-            Comparer = comparer;
-        }
 
         public async Task Push(T item)
         {
