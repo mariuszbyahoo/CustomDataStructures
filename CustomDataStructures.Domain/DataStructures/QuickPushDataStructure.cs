@@ -45,12 +45,12 @@ namespace CustomDataStructures.Domain.DataStructures
                     if (currentLookup is not null)
                     {
                         var compRes = currentLookup.CompareTo(biggest);
-                        if (compRes == -1 || compRes == 0)
+                        if (compRes <= 0)
                         {
                             // currentLookup is smaller than biggest
                             currentLookup = currentLookup.Previous;
                         }
-                        else if (compRes == 1)
+                        else 
                         {
                             // Found bigger number
                             biggest = currentLookup;
