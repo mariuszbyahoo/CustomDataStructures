@@ -97,9 +97,9 @@ namespace CustomDataStructures.Tests
             // Greatest.Value inside of an IntDataStructure, therefore inserting such a number will take only few ticks - still that's not 
             // common as it may be seen using debugger and inspecting the results when it comes to 12000 values stored in QuickPopDataStructure
 
-            result[3].Should().BeLessThan(result[9000]);
-            result[7].Should().BeLessThan(result[10000]);
-            result[5].Should().BeLessThan(result[11100]);
+            result[9].Should().BeLessThan(result[9000]);
+            result[17].Should().BeLessThan(result[10000]);
+            result[25].Should().BeLessThan(result[11100]);
         }
 
         #endregion
