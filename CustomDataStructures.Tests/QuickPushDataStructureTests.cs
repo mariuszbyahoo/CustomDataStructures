@@ -72,12 +72,13 @@ namespace CustomDataStructures.Tests
                 watch.Stop();
                 output[i] = watch.ElapsedTicks;
             }
-            // HACK: It is reversely optimal to expected - the more numbers stored, the faster the data structure performs Pop()
-            // NOTE: HACK TODO
+            
+            // NOTE: This test will not pass as my QuickPushDataStructure instead of slowing down with each thousand of elements it 
+            // actually works faster.
 
-            output[3].Should().BeLessThan(output[3800]);
-            output[7].Should().BeLessThan(output[2200]);
-            output[5].Should().BeLessThan(output[11100]);
+            output[8].Should().BeLessThan(output[3800]);
+            output[17].Should().BeLessThan(output[2200]);
+            output[25].Should().BeLessThan(output[11100]);
             result = new List<long>(output.Where(n => n < 4));
             result.Count.Should().BeCloseTo(12000, 500);
         }
@@ -105,7 +106,7 @@ namespace CustomDataStructures.Tests
 
         #endregion
 
-        #region UnitTests
+        #region Tests
 
         [Test]
         public async Task QuickPushDataStructure_WithInt32AsGenericArgAndElevenNumbersPassedInWhenPop_ReturnsValuesInDescendingOrder()
@@ -151,7 +152,7 @@ namespace CustomDataStructures.Tests
         }
 
         [Test]
-        public async Task QuickPushDataStructure_WithInt32AsGenericArgAndNineNumbersPassedInWhenPopCalledOnMultipleThreads_ReturnsExpectedResult()
+        public async Task QuickPushDataStructure_WithInt32AsGenericArgAndNineNumbersPassedInWhenPushCalledOnMultipleThreads_ReturnsExpectedResult()
         {
             var tasks = new List<Task>();
 
@@ -202,14 +203,14 @@ namespace CustomDataStructures.Tests
             var res3 = await IntDataStructure.Pop();
             var res4 = await IntDataStructure.Pop();
 
-            var res5 = await IntDataStructure.Pop(); // res5 receives default value
+            var res5 = await IntDataStructure.Pop(); 
 
             res1.Should().Be(6);
             res2.Should().Be(4);
             res3.Should().Be(3);
             res4.Should().Be(2);
 
-            res5.Should().Be(default(int)); // res5 receives default value
+            res5.Should().Be(default(int)); 
         }
         #endregion
     }
